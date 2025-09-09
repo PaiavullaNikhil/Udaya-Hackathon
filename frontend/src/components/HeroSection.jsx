@@ -73,7 +73,7 @@ const HeroSection = () => {
             viewport={{ once: true }}
           >
             {[
-              { icon: Calendar, text: "September 27, 2024" },
+              { icon: Calendar, text: "September 27, 2025" },
               { icon: Clock, text: "8 AM - 8 PM" },
               { icon: Users, text: "12 Hours" },
             ].map((item, index) => (

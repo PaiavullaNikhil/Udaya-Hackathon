@@ -71,7 +71,7 @@ const ThreeJSLogo = () => {
           <FloatingParticle key={i} index={i} />
         ))}
 
-        <RotatingLogo modelPath="/UdayaLogo.glb" />
+        <RotatingLogo modelPath="/model_draco.glb" />
 
         <OrbitControls
           enableZoom={false}
