@@ -1,3 +1,5 @@
+ 
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import stats from '../constants/stats';
 import { pulseVariants } from '../utils/animations';

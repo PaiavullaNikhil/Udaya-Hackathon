@@ -1,8 +1,7 @@
-import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { Coffee, UtensilsCrossed } from 'lucide-react';
-import { floatingVariants } from '../utils/animations';
 import foodItems from '../constants/foodItems';
+import { floatingVariants } from '../utils/animations';
 
 const FoodSection = () => {
 

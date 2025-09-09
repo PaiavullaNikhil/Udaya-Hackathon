@@ -1,8 +1,9 @@
-import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { Rocket, Mail } from 'lucide-react';
+import { Mail, Rocket } from 'lucide-react';
 
 const CTASection = () => {
+
   return (
     <motion.section 
       className="relative z-10 py-20 px-4"
@@ -35,7 +36,7 @@ const CTASection = () => {
           transition={{ delay: 0.4, duration: 0.8 }}
         >
           <motion.button 
-            className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 text-black px-10 py-5 rounded-full text-xl font-bold transition-all duration-300 border-2 border-orange-400 shadow-lg shadow-orange-500/30 relative overflow-hidden"
+            className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 text-black px-10 py-5 rounded-full text-xl font-bold transition-all duration-300 border-2 border-orange-400 shadow-lg shadow-orange-500/30 relative overflow-hidden cursor-pointer"
             whileHover={{ 
               scale: 1.05,
               boxShadow: "0 20px 40px rgba(255, 107, 53, 0.5)"
