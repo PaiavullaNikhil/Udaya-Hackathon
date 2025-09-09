@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import Sponsors from '../constants/Sponsors';
+import Sponsors from '../constants/sponsors';
 
 const SponsorsSection = () => {
   return (
