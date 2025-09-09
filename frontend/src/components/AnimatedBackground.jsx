@@ -18,7 +18,7 @@ const AnimatedBackground = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-orange-900/20 via-transparent to-transparent"></div>
       
       {/* Floating particles */}
-      {[...Array(20)].map((_, i) => (
+      {[...Array(25)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute w-2 h-2 bg-orange-400/30 rounded-full"

@@ -6,8 +6,6 @@ import { pulseVariants } from '../utils/animations';
 import AnimatedCounter from './AnimatedCounter';
 
 const StatsSection = () => {
-
-
   return (
     <motion.section 
       className="relative z-10 py-20 px-4"
