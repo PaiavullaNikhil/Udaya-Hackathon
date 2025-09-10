@@ -6,7 +6,7 @@ import ThreeJSLogo from "./ThreeJSLogo";
 const HeroSection = () => {
   return (
     <section className="relative z-10 min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-20 py-12">
-      <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* LEFT: TEXT CONTENT */}
         <motion.div
           className="text-center lg:text-left"
@@ -16,18 +16,19 @@ const HeroSection = () => {
         >
           {/* Title with sparkle effect */}
           <motion.div className="relative mb-6">
-            <motion.h1
-              className="font-black bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent"
-              style={{ backgroundSize: "200% 200%" }}
-              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            >
-              <span className="block text-[clamp(3.5rem,12vw,7rem)] leading-tight">
-                UDAYA 1.0
-              </span>
-            </motion.h1>
+            <div className="flex items-center justify-center lg:justify-start w-full overflow-visible">
+              <motion.h1
+                className="font-black bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent"
+                style={{ backgroundSize: "200% 200%" }}
+                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              >
+                <span className="block text-[clamp(4rem,8vw,6.5rem)] leading-tight whitespace-nowrap">
+                  UDAYA 1.0
+                </span>
+              </motion.h1>
+            </div>
 
-            {/* Sparkles */}
             {/* Sparkles */}
             {[...Array(6)].map((_, i) => (
               <motion.div
@@ -45,7 +46,7 @@ const HeroSection = () => {
                   y: ["0%", "-10%", "10%"],
                 }}
                 transition={{
-                  duration: 3  + i,
+                  duration: 3 + i,
                   repeat: Infinity,
                   delay: i * 0.5,
                   ease: "easeInOut",
@@ -54,11 +55,10 @@ const HeroSection = () => {
                 <Sparkles className="w-6 h-6" />
               </motion.div>
             ))}
-
           </motion.div>
 
           <motion.p
-            className="text-[clamp(1rem,3vw,2rem)] text-orange-300 mb-6 font-light"
+            className="text-[clamp(1.5rem,3vw,2rem)] text-orange-300 mb-6 font-light"
             animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
@@ -79,7 +79,7 @@ const HeroSection = () => {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-orange-500/20 cursor-pointer"
+                className="text-center bg-white/5 backdrop-blur-sm rounded-2xl px-8 py-2 border border-orange-500/20 cursor-pointer"
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
@@ -100,7 +100,9 @@ const HeroSection = () => {
                 >
                   <item.icon className="w-8 h-8 text-orange-400 mb-2 mx-auto" />
                 </motion.div>
-                <span className="text-base md:text-lg font-semibold">{item.text}</span>
+                <span className="text-base md:text-lg font-semibold">
+                  {item.text}
+                </span>
               </motion.div>
             ))}
           </motion.div>
@@ -134,11 +136,11 @@ const HeroSection = () => {
         </motion.div>
 
         {/* RIGHT: 3D LOGO */}
-        <div className="relative w-full max-w-[800px] mx-auto aspect-square">
+        <div className="relative w-full max-w-[500px] sm:max-w-[600px] xl:max-w-[700px] mx-auto h-auto overflow-visible">
           <ThreeJSLogo />
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 

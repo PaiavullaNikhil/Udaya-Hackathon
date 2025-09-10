@@ -1,10 +1,31 @@
 import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function RotatingLogo({ modelPath }) {
   const meshRef = useRef();
   const { scene, error } = useGLTF(modelPath);
+
+  const [responsiveScale, setResponsiveScale] = useState([0.8, 0.8, 0.8]);
+
+  useEffect(() => {
+    const updateScale = () => {
+      const screenWidth = window.innerWidth;
+
+      if (screenWidth < 640) setResponsiveScale([0.65, 0.65, 0.65]);
+      else if (screenWidth < 1110) setResponsiveScale([0.65, 0.65, 0.65]);
+      else if (screenWidth < 1280) setResponsiveScale([0.7, 0.7, 0.7]);
+      else if (screenWidth < 1536) setResponsiveScale([0.8, 0.8, 0.8]);
+      else setResponsiveScale([0.9, 0.9, 0.9]);
+    };
+
+    // Run on mount
+    updateScale();
+
+    // Listen to resize
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -46,19 +67,44 @@ function RotatingLogo({ modelPath }) {
     <primitive
       ref={meshRef}
       object={scene}
-      scale={[0.6, 0.6, 0.6]}
+      scale={responsiveScale}
       position={[0, 0, 0]}
       rotation={[0, (4 * Math.PI) / 3, 0]} // start at specific angle
     />
   );
 }
 
+function FloatingParticle({ index }) {
+  const particleRef = useRef();
+  const initialPosition = [
+    (Math.random() - 0.5) * 10,
+    (Math.random() - 0.5) * 10,
+    (Math.random() - 0.5) * 10,
+  ];
+
+  useFrame((state) => {
+    if (particleRef.current) {
+      particleRef.current.position.y =
+        initialPosition[1] + Math.sin(state.clock.elapsedTime + index) * 0.5;
+      particleRef.current.rotation.x += 0.01;
+      particleRef.current.rotation.y += 0.01;
+    }
+  });
+
+  return (
+    <mesh ref={particleRef} position={initialPosition}>
+      <sphereGeometry args={[0.01, 6, 6]} />
+      <meshBasicMaterial color="#ff6b35" transparent opacity={0.2} />
+    </mesh>
+  );
+}
+
 const ThreeJSLogo = () => {
   return (
-    <div className="absolute inset-0 w-full h-full">
+    <div className="relative w-full h-[60vh] max-h-[700px] overflow-visible">
       <Canvas
-        camera={{ position: [0, 0, 3], fov: 60 }}
-        style={{ background: 'transparent', width: '100%', height: '100%' }}
+        camera={{ position: [0, 0, 5], fov: 45, near: 0.01, far: 100 }}
+        style={{ background: "transparent", width: "100%", height: "100%" }}
       >
         <ambientLight intensity={0.6} />
         <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
@@ -84,31 +130,5 @@ const ThreeJSLogo = () => {
     </div>
   );
 };
-
-// ⬆️ moved FloatingParticle outside (so hooks aren’t inside a loop)
-function FloatingParticle({ index }) {
-  const particleRef = useRef();
-  const initialPosition = [
-    (Math.random() - 0.5) * 10,
-    (Math.random() - 0.5) * 10,
-    (Math.random() - 0.5) * 10,
-  ];
-
-  useFrame((state) => {
-    if (particleRef.current) {
-      particleRef.current.position.y =
-        initialPosition[1] + Math.sin(state.clock.elapsedTime + index) * 0.5;
-      particleRef.current.rotation.x += 0.01;
-      particleRef.current.rotation.y += 0.01;
-    }
-  });
-
-  return (
-    <mesh ref={particleRef} position={initialPosition}>
-      <sphereGeometry args={[0.01, 6, 6]} />
-      <meshBasicMaterial color="#ff6b35" transparent opacity={0.2} />
-    </mesh>
-  );
-}
 
 export default ThreeJSLogo;

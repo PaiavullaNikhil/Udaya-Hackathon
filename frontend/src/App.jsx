@@ -10,6 +10,7 @@ import ScheduleSection from "./components/ScheduleSection";
 import SponsorsSection from "./components/SponsorsSection";
 import StatsSection from "./components/StatsSection";
 import ThemesSection from "./components/ThemesSection";
+import ThreeJSLogo from "./components/ThreeJSLogo";
 
 const HomePage = () => {
   return (
