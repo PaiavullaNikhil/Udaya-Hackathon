@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const FuturisticInput = ({
     label,
@@ -12,7 +12,37 @@ const FuturisticInput = ({
 }) => {
     const [isFocused, setIsFocused] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const displayValue = type === "file" && value ? value.name : value || "";
+    const [selectedFile, setSelectedFile] = useState(type === "file" ? value || null : null);
+
+    useEffect(() => {
+        if (type === "file") setSelectedFile(value || null);
+    }, [value, type]);
+
+    const displayValue = type === "file" ? (selectedFile ? selectedFile.name : "") : value || "";
+
+    const handleFileClick = () => {
+        const fileInput = document.getElementById(`${label}-file`);
+        setIsFocused(true);
+        fileInput.value = null; // reset to detect cancel
+        fileInput.click();
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0] || null;
+        setSelectedFile(file);
+        onChange(file);
+        setIsFocused(!!file);
+    };
+
+    const handleFileBlur = () => {
+        if (!selectedFile) setIsFocused(false);
+    };
+
+    const handleDeleteFile = () => {
+        setSelectedFile(null);
+        onChange(null);
+        setIsFocused(false);
+    };
 
     return (
         <motion.div
@@ -21,47 +51,19 @@ const FuturisticInput = ({
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
         >
-            {/* Soft Glow Border */}
-            <motion.div
-                className="absolute inset-0 rounded-2xl"
-                style={{
-                    background: isFocused
-                        ? "linear-gradient(90deg, rgba(255,140,60,0.25), rgba(255,140,60,0.05))"
-                        : "transparent",
-                }}
-                animate={{ opacity: isFocused ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-            />
-
-            {/* Glowing Background */}
-            <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-orange-500/10 rounded-2xl blur-xl"
-                animate={{
-                    opacity: isFocused ? 0.7 : isHovered ? 0.3 : 0,
-                    scale: isFocused ? 1.03 : 1,
-                }}
-                transition={{ duration: 0.3 }}
-            />
-
             <div className="relative bg-black/50 backdrop-blur-xl border border-orange-400/30 rounded-2xl p-1">
-                {/* Floating Label */}
-                <motion.label
-                    className={`absolute left-4 transition-all duration-300 pointer-events-none 
-                        ${(isFocused || value || options)
-                            ? "top-2 text-xs text-orange-300 font-semibold"
-                            : "top-1/2 -translate-y-1/2 text-gray-400"
-                        }`}
-                    animate={{
-                        color: isFocused ? "#FF8C3C" : "#9CA3AF",
-                        textShadow: isFocused
-                            ? "0 0 10px rgba(255,140,60,0.8)"
-                            : "0 0 0px transparent",
-                    }}
-                >
-                    {label} {required && <span className="text-red-400">*</span>}
-                </motion.label>
+                {/* Floating label for non-file inputs */}
+                {type !== "file" && (
+                    <label
+                        className={`absolute left-4 transition-all duration-300 pointer-events-none ${isFocused || displayValue || options
+                                ? "top-2 text-xs text-orange-300 font-semibold"
+                                : "top-1/2 -translate-y-1/2 text-gray-400"
+                            }`}
+                    >
+                        {label} {required && <span className="text-red-400">*</span>}
+                    </label>
+                )}
 
-                {/* Select Input */}
                 {options ? (
                     <select
                         value={value || ""}
@@ -69,69 +71,68 @@ const FuturisticInput = ({
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setIsFocused(false)}
                         required={required}
-                        className="w-full bg-transparent text-white pt-8 pb-4 px-4 focus:outline-none text-lg font-medium appearance-none"
+                        className="w-full bg-black/70 text-white pt-8 pb-4 px-4 focus:outline-none text-lg font-medium appearance-none"
                     >
-                        <option value="" disabled hidden className="bg-black/60 text-gray-400">
+                        <option value="" disabled hidden className="bg-black/70 text-gray-400">
                             Select your {label}
                         </option>
                         {options.map((opt) => (
                             <option
                                 key={opt.value}
                                 value={opt.value}
-                                className="bg-black/60 text-white"
+                                className="bg-black/70 text-white"
                             >
                                 {opt.label}
                             </option>
                         ))}
                     </select>
                 ) : type === "file" ? (
-                    <div
-                        className="relative w-full pt-8 pb-4 px-4 cursor-pointer"
-                        onClick={() => {
-                            const fileInput = document.getElementById(`${label}-file`);
-                            setIsFocused(true); // keep focus when opening dialog
-                            fileInput.click();
-                        }}
-                    >
-                        <input
-                            id={`${label}-file`}
-                            type="file"
-                            className="hidden"
-                            onChange={(e) => {
-                                onChange(e);       
-                                setIsFocused(false);
-                            }}
-                            required={required}
-                        />
-                        <span
-                            className={`block text-lg font-medium transition-colors duration-300 ${displayValue ? "text-white" : "text-gray-500"
-                                }`}
-                        >
-                            {displayValue}
+                    <div className="relative w-full pt-6 pb-4 px-4 flex items-center gap-4">
+                        {/* Pinned label for file input */}
+                        <span className="absolute top-1 left-3 text-xs text-orange-300 font-semibold pointer-events-none">
+                            {label} {required && <span className="text-red-400">*</span>}
                         </span>
+
+                        <div className="flex-1 cursor-pointer" onClick={handleFileClick}>
+                            <input
+                                id={`${label}-file`}
+                                type="file"
+                                className="hidden"
+                                onChange={handleFileChange}
+                                onBlur={handleFileBlur}
+                            />
+                            <span className={`block text-lg ${selectedFile ? "text-white" : "text-gray-500"}`}>
+                                {selectedFile ? selectedFile.name : "No file selected"}
+                            </span>
+                        </div>
+
+                        {selectedFile && (
+                            <button
+                                type="button"
+                                onClick={handleDeleteFile}
+                                className="px-3 py-1 bg-red-600 rounded text-sm hover:bg-red-700"
+                            >
+                                Delete
+                            </button>
+                        )}
                     </div>
-                )
-                : (
-                // Regular Text Input
-                <input
-                    type={type}
-                    value={value}
-                    onChange={onChange}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
-                    required={required}
-                    placeholder={placeholder}
-                    className="w-full bg-transparent text-white pt-8 pb-4 px-4 focus:outline-none text-lg font-medium placeholder-transparent"
-                />
+                ) : (
+                    <input
+                        type={type}
+                        value={value}
+                        onChange={onChange}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        required={required}
+                        placeholder={placeholder}
+                        className="w-full bg-transparent text-white pt-8 pb-4 px-4 focus:outline-none text-lg font-medium placeholder-transparent"
+                    />
                 )}
 
-                {/* Underline Animation */}
+                {/* Underline animation */}
                 <motion.div
                     className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-500"
-                    animate={{
-                        width: isFocused ? "100%" : "0%",
-                        opacity: isFocused ? 1 : 0,
-                    }}
+                    animate={{ width: isFocused ? "100%" : "0%", opacity: isFocused ? 1 : 0 }}
                     transition={{ duration: 0.3 }}
                 />
             </div>

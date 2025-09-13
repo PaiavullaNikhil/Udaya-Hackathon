@@ -19,15 +19,11 @@ const RegistrationPageView = () => {
   const [numMembers, setNumMembers] = useState(2); // default 2 participants
   const [members, setMembers] = useState(
     Array.from({ length: numMembers }, () => ({
-      name: "",
+      fullName: "",
       email: "",
       usn: "",
       college: "",
-      phone: "",
-      year: "",
-      LinkedIn: "",
-      Github: "",
-      resume: null
+      phoneNumber: "",
     }))
   );
 
@@ -61,11 +57,11 @@ const RegistrationPageView = () => {
     if (currentStep === 1)
       return members.slice(0, numMembers).every(
         (m) =>
-          m.name.trim() &&
+          m.fullName.trim() &&
           m.email.trim() &&
           m.usn.trim() &&
           m.college.trim() &&
-          m.year.trim()
+          m.phoneNumber.trim()
       );
     return true;
   };
@@ -74,11 +70,11 @@ const RegistrationPageView = () => {
     teamName.trim() !== "" &&
     members.slice(0, numMembers).every(
       (m) =>
-        m.name.trim() &&
+        m.fullName.trim() &&
         m.email.trim() &&
         m.usn.trim() &&
         m.college.trim() &&
-        m.year.trim()
+        m.phoneNumber.trim()
     );
 
   const sparklePositions = useMemo(() => {
@@ -91,15 +87,11 @@ const RegistrationPageView = () => {
   useEffect(() => {
     setMembers((prev) => {
       return Array.from({ length: numMembers }, (_, i) => prev[i] || {
-        name: "",
+        fullName: "",
         email: "",
         usn: "",
         college: "",
-        phone: "",
-        year: "",
-        LinkedIn: "",
-        Github: "",
-        resume: null // make sure resume is here!
+        phoneNumber: "",
       });
     });
   }, [numMembers]);
@@ -112,12 +104,41 @@ const RegistrationPageView = () => {
     nextStep();
   };
 
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     if (!isFormValid()) {
       toast.error("Please fill all required details!");
       return;
     }
-    handleSubmit();
+
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("teamName", teamName);
+      formData.append("theme", theme);
+      formData.append("numMembers", numMembers);
+      formData.append("members", JSON.stringify(members.slice(0, numMembers))); // only active members
+      if (file) formData.append("pptFile", file);
+
+      const res = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setSubmitSuccess(true);
+        toast.success("Registration Successful!");
+      } else {
+        toast.error(data.message || "Team name already exists!");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong!");
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -275,7 +296,7 @@ const RegistrationPageView = () => {
                   <FuturisticInput
                     label="Full Name"
                     value={member.name}
-                    onChange={(e) => updateMember(index, "name", e.target.value)}
+                    onChange={(e) => updateMember(index, "fullName", e.target.value)}
                     required={false}
 
                   />
@@ -302,7 +323,7 @@ const RegistrationPageView = () => {
                   <FuturisticInput
                     label="Phone Number"
                     value={member.phone}
-                    onChange={(e) => updateMember(index, "phone", e.target.value)}
+                    onChange={(e) => updateMember(index, "phoneNumber", e.target.value)}
                     placeholder="Enter Phone number"
                     required={false}
                   />
@@ -318,24 +339,33 @@ const RegistrationPageView = () => {
             {!submitSuccess ? (
               <>
                 <h2 className="text-2xl font-bold text-orange-300">Review & Submit</h2>
-                <div className="bg-black/50 p-6 rounded-xl border border-orange-400/20 text-left">
-                  <h3 className="text-xl font-bold text-orange-300 mb-4">Team: {teamName}</h3>
+
+                <div className="bg-black/50 p-6 rounded-xl border border-orange-400/20 text-left space-y-4">
+                  <h3 className="text-xl font-bold text-orange-300 mb-2">Team: {teamName}</h3>
+
                   {members.filter((m) => m.name).map((m, i) => (
                     <p key={i} className="text-gray-200">
                       {m.name} {i === 0 && "(Leader)"} — {m.email}
                     </p>
                   ))}
+
+                  {/* PPT Upload */}
+                  <FuturisticInput
+                    label="Team PPT"
+                    type="file"
+                    value={file}
+                    onChange={(file) => setFile(file)}
+                  />
                 </div>
               </>
             ) : (
               <div className="text-green-400">
-                <div className="text-5xl mb-4">✅</div>
                 <h2 className="text-2xl font-bold">Registration Successful!</h2>
-                <p>Welcome to Udaya 1.0 Hackathon!</p>
               </div>
             )}
           </div>
         )}
+
 
         {/* Footer Buttons */}
         {!submitSuccess && (

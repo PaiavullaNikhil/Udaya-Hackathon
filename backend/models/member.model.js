@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const memberSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
@@ -8,4 +8,4 @@ const memberSchema = new mongoose.Schema({
   college: { type: String, required: true }
 });
 
-module.exports = memberSchema;
+export default memberSchema;
