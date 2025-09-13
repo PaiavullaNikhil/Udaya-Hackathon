@@ -363,24 +363,19 @@ const RegistrationPageView = () => {
 
                   {members.filter((m) => m.fullName).map((m, i) => (
                     <p key={i} className="text-gray-200">
-                      {m.fullName} {i === 0 && "(Leader)"} — {m.email}
+                      {m.fullName} {i === 0 && "(Leader)"} - {m.email}
                     </p>
                   ))}
 
-                  {/* PPT Upload */}
-                  <FuturisticInput
-                    label="Team PPT"
-                    type="file"
-                    value={file}
-                    onChange={(file) => setFile(file)}
-                  />
                   {/* Google Drive Link Input */}
                   <FuturisticInput
-                    label="Google Drive Link"
+                    label="Google Drive Link of PPT"
                     value={driveLink}
                     onChange={(e) => setDriveLink(e.target.value)}
-                    placeholder="Paste your shareable Google Drive link"
                   />
+                  <p className="text-sm text-gray-400 mt-1">
+                    📌 Include Problem Statement & Solution. Anyone with the link should have access
+                  </p>
                 </div>
               </>
             ) : (
@@ -390,6 +385,7 @@ const RegistrationPageView = () => {
             )}
           </div>
         )}
+
 
 
         {/* Footer Buttons */}

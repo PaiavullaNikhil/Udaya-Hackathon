@@ -4,7 +4,7 @@ const foodItems = [
   {
     icon: Coffee,
     title: "Morning Boost",
-    desc: "Fresh tea & coffee to kickstart your day",
+    desc: "Fresh tea / coffee to kickstart your day",
   },
   {
     icon: UtensilsCrossed,
