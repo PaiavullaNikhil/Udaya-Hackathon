@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import themes from "../constants/themes";
 import { containerVariants } from "../utils/animations";
 import AnimatedBackground from "./AnimatedBackground";
 import FuturisticInput from "./FuturisticInput";
-import { useNavigate } from "react-router-dom";
 
 
 const RegistrationPageView = () => {
@@ -329,8 +329,12 @@ const RegistrationPageView = () => {
                     label="College"
                     value={member.college}
                     onChange={(e) => updateMember(index, "college", e.target.value)}
-                    placeholder="Enter college name"
-                    required={false}
+                    placeholder="Select your college"
+                    options={[
+                      { value: "Dayananda Sagar College of Engineering", label: "Dayananda Sagar College of Engineering" },
+                      { value: "Dayananda Sagar University", label: "Dayananda Sagar University" },
+                      { value: "Dayananda Sagar Academy of Technology and Management", label: "Dayananda Sagar Academy of Technology and Management" },
+                    ]}
                   />
                   <FuturisticInput
                     label="Phone Number"
