@@ -1,8 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Mail, Rocket } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const CTASection = () => {
+  const navigate = useNavigate();
 
   return (
     <motion.section 
@@ -37,6 +39,7 @@ const CTASection = () => {
         >
           <motion.button 
             className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 text-black px-10 py-5 rounded-full text-xl font-bold transition-all duration-300 border-2 border-orange-400 shadow-lg shadow-orange-500/30 relative overflow-hidden cursor-pointer"
+            onClick={()=>navigate("/register")}
             whileHover={{ 
               scale: 1.05,
               boxShadow: "0 20px 40px rgba(255, 107, 53, 0.5)"
@@ -58,7 +61,7 @@ const CTASection = () => {
             whileHover={{ scale: 1.05, color: "#FF6B35" }}
           >
             <Mail className="w-5 h-5" />
-            <span>contact@udayahackathon.com</span>
+            <span>udaya1.0.hackathon@gmail.com</span>
           </motion.div>
         </motion.div>
       </div>

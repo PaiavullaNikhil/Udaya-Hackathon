@@ -6,9 +6,12 @@ import themes from "../constants/themes";
 import { containerVariants } from "../utils/animations";
 import AnimatedBackground from "./AnimatedBackground";
 import FuturisticInput from "./FuturisticInput";
+import { useNavigate } from "react-router-dom";
 
 
 const RegistrationPageView = () => {
+  const navigate = useNavigate();
+  const [driveLink, setDriveLink] = useState("");
   const [file, setFile] = useState(null);
   const [isParticipantsHovered, setIsParticipantsHovered] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -117,8 +120,9 @@ const RegistrationPageView = () => {
       formData.append("teamName", teamName);
       formData.append("theme", theme);
       formData.append("numMembers", numMembers);
-      formData.append("members", JSON.stringify(members.slice(0, numMembers))); // only active members
-      if (file) formData.append("pptFile", file);
+      formData.append("members", JSON.stringify(members.slice(0, numMembers)));
+      formData.append("pptFile", file);
+      formData.append("driveLink", driveLink);
 
       const res = await fetch("http://localhost:3000/register", {
         method: "POST",
@@ -129,7 +133,14 @@ const RegistrationPageView = () => {
 
       if (res.ok) {
         setSubmitSuccess(true);
-        toast.success("Registration Successful!");
+        toast.success(
+          "Registration Successful! Confirmation mail has been sent to your spam folder too."
+        );
+
+        // Redirect after 3 seconds
+        setTimeout(() => {
+          navigate("/"); // replace "/" with your home route
+        }, 3000);
       } else {
         toast.error(data.message || "Team name already exists!");
       }
@@ -295,9 +306,10 @@ const RegistrationPageView = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <FuturisticInput
                     label="Full Name"
-                    value={member.name}
+                    value={member.fullName}
                     onChange={(e) => updateMember(index, "fullName", e.target.value)}
                     required={false}
+                    placeholder="Full Name"
 
                   />
                   <FuturisticInput
@@ -322,7 +334,7 @@ const RegistrationPageView = () => {
                   />
                   <FuturisticInput
                     label="Phone Number"
-                    value={member.phone}
+                    value={member.phoneNumber}
                     onChange={(e) => updateMember(index, "phoneNumber", e.target.value)}
                     placeholder="Enter Phone number"
                     required={false}
@@ -343,9 +355,9 @@ const RegistrationPageView = () => {
                 <div className="bg-black/50 p-6 rounded-xl border border-orange-400/20 text-left space-y-4">
                   <h3 className="text-xl font-bold text-orange-300 mb-2">Team: {teamName}</h3>
 
-                  {members.filter((m) => m.name).map((m, i) => (
+                  {members.filter((m) => m.fullName).map((m, i) => (
                     <p key={i} className="text-gray-200">
-                      {m.name} {i === 0 && "(Leader)"} — {m.email}
+                      {m.fullName} {i === 0 && "(Leader)"} — {m.email}
                     </p>
                   ))}
 
@@ -355,6 +367,13 @@ const RegistrationPageView = () => {
                     type="file"
                     value={file}
                     onChange={(file) => setFile(file)}
+                  />
+                  {/* Google Drive Link Input */}
+                  <FuturisticInput
+                    label="Google Drive Link"
+                    value={driveLink}
+                    onChange={(e) => setDriveLink(e.target.value)}
+                    placeholder="Paste your shareable Google Drive link"
                   />
                 </div>
               </>

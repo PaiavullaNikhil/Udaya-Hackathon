@@ -2,7 +2,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import mongoose from "mongoose";
+import connectDB from "./configs/db.js";
 import registrationRoutes from "./routes/registrationRoutes.js"; // your routes file
 
 dotenv.config();
@@ -17,11 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for URL-encoded
 // Routes
 app.use("/register", registrationRoutes);
 
-// MongoDB connection
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+connectDB();
 
 // Start server
 const PORT = process.env.PORT || 5000;

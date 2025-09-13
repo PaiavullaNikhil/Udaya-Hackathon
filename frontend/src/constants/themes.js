@@ -18,7 +18,7 @@ const themes = [
   {
     iconComponent: Wheat,
     title: "AI in Agriculture",
-    description: "AI tools for better farming, yield, sustainability",
+    description: "AI tools for smarter farming, higher yield, and sustainability",
     color: "from-green-600 to-emerald-600",
     prize: "₹15,000 (Winner) + ₹5,000 (Runner Up)",
   },

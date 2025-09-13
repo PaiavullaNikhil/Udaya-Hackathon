@@ -130,7 +130,7 @@ const ThemesAndPrizesSection = () => {
                   }}
                 >
                   <Trophy className="w-4 h-4 text-orange-400 mr-2" />
-                  <span className="text-orange-300 font-semibold">{theme.prize}</span>
+                  <span className="text-orange-300 font-semibold text-[15px]">{theme.prize}</span>
                 </motion.div>
               </div>
             </motion.div>

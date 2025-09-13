@@ -6,6 +6,7 @@ const teamSchema = new mongoose.Schema({
   theme: { type: String, required: true },
   numberOfParticipants: { type: Number, required: true },
   ppt: { type: String, default: false },
+  driveLink: { type: String, default: null },
   members: [memberSchema],
   createdAt: { type: Date, default: Date.now }
 });
