@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { memo } from "react";
 
 const AnimatedBackground = () => {
   const isMobile = window.innerWidth < 768;
@@ -54,4 +55,4 @@ const AnimatedBackground = () => {
   );
 };
 
-export default AnimatedBackground;
+export default memo(AnimatedBackground);

@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, Sparkles, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { containerVariants, itemVariants } from "../utils/animations";
 import ThreeJSLogo from "./ThreeJSLogo";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative z-10 min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-20 py-12">
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -110,6 +112,7 @@ const HeroSection = () => {
           {/* Register Button */}
           <motion.div className="mt-8 md:mt-12" variants={itemVariants}>
             <motion.button
+            onClick={()=>navigate("/register")}
               className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 text-black px-8 md:px-12 py-4 md:py-6 rounded-full text-lg md:text-xl font-bold transition-all duration-300 border-2 border-orange-400 shadow-lg shadow-orange-500/30 relative overflow-hidden"
               whileHover={{
                 scale: 1.05,

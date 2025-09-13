@@ -25,3 +25,10 @@ html {
 html, body {
   overflow-x: hidden;
 }
+
+input[type="range"]::-webkit-slider-thumb {
+  transition: all 0.2s ease;
+}
+input[type="range"]::-moz-range-thumb {
+  transition: all 0.2s ease;
+}
