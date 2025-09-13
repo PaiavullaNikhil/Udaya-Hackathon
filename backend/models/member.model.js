@@ -8,4 +8,4 @@ const memberSchema = new mongoose.Schema({
   college: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Member', memberSchema);
+module.exports = memberSchema;
