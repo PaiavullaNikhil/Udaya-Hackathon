@@ -8,6 +8,15 @@ const LoadingPage = () => {
   const [fadeOut, setFadeOut] = useState(false);
   const canvasRef = useRef(null);
 
+  // Disable scrolling during loading
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden"; // Prevent scrolling
+    return () => {
+      document.body.style.overflow = originalOverflow; // Restore
+    };
+  }, []);
+
   // Optional subtle star background
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -59,7 +68,6 @@ const LoadingPage = () => {
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen bg-black px-4 overflow-hidden">
-      
       {/* Animated Background */}
       <AnimatedBackground className="absolute inset-0 w-full h-full z-0" />
 
@@ -132,16 +140,8 @@ const LoadingPage = () => {
             Powered by
           </span>
           <div className="flex items-center gap-8">
-            <img
-              src="/DERBI.png"
-              alt="DERBI"
-              className="h-14 md:h-16 drop-shadow-lg"
-            />
-            <img
-              src="/SAGAR.png"
-              alt="Sagar Hospitals"
-              className="h-14 md:h-16 drop-shadow-lg"
-            />
+            <img src="/DERBI.png" alt="DERBI" className="h-14 md:h-16 drop-shadow-lg" />
+            <img src="/SAGAR.png" alt="Sagar Hospitals" className="h-14 md:h-16 drop-shadow-lg" />
           </div>
         </motion.div>
       </motion.div>

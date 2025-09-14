@@ -7,7 +7,7 @@ import ThreeJSLogo from "./ThreeJSLogo";
 const HeroSection = () => {
   const navigate = useNavigate();
   return (
-    <section className="relative z-10 min-h-[80vh] flex items-center justify-center px-6 md:px-12 lg:px-20 py-12">
+    <section className="hero relative z-10 min-h-screen flex flex-col items-center justify-center px-6 md:px-12 lg:px-20 py-12">
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* LEFT: TEXT CONTENT */}
         <motion.div
@@ -112,7 +112,7 @@ const HeroSection = () => {
           {/* Register Button */}
           <motion.div className="mt-8 md:mt-12" variants={itemVariants}>
             <motion.button
-            onClick={()=>navigate("/register")}
+              onClick={() => navigate("/register")}
               className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 text-black px-8 md:px-12 py-4 md:py-6 rounded-full text-lg md:text-xl font-bold transition-all duration-300 border-2 border-orange-400 shadow-lg shadow-orange-500/30 relative overflow-hidden"
               whileHover={{
                 scale: 1.05,
@@ -143,7 +143,36 @@ const HeroSection = () => {
           <ThreeJSLogo />
         </div>
       </div>
-    </section >
+
+      {/* Scroll Down Button at center of HeroSection */}
+      <motion.div
+        onClick={() => {
+          const hero = document.querySelector("section.hero");
+          if (hero) {
+            const heroBottom = hero.offsetTop + hero.offsetHeight;
+            window.scrollTo({ top: heroBottom, behavior: "smooth" });
+          }
+        }}
+        className="cursor-pointer mt-12"
+        animate={{ y: [0, 15, 0] }} // Bounce up and down
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-10 w-10 text-orange-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </motion.div>
+    </section>
   );
 };
 
