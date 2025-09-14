@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import schedule from '../constants/schedule';
@@ -35,35 +37,24 @@ const ScheduleSection = () => {
           Event Timeline
         </motion.h2>
 
-        <div className="space-y-4">
+        {/* Wrapper flex for centering cards */}
+        <div className="flex flex-col items-center space-y-4">
           {schedule.map((item, index) => (
             <motion.div
               key={index}
-              className="flex items-center space-x-6 bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-orange-500/20 cursor-pointer"
-              initial={
-                screenSize === 'desktop'
-                  ? { x: -50, opacity: 0 }
-                  : { opacity: 0.5 }
-              }
-              whileInView={
-                screenSize === 'desktop'
-                  ? { x: 0, opacity: 1 }
-                  : { opacity: 1 }
-              }
-              transition={
-                screenSize === 'desktop'
-                  ? { delay: index * 0.1, duration: 0.6 }
-                  : { duration: 0.5 }
-              }
-              whileHover={
-                screenSize === 'desktop'
-                  ? { scale: 1.02, borderColor: 'rgba(255, 107, 53, 0.4)', x: 10 }
-                  : {}
-              }
+              className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6
+             bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-orange-500/20 cursor-pointer
+             max-w-md w-full sm:w-auto mx-auto"
+              initial={screenSize === "desktop" ? { x: -50, opacity: 0 } : { x: 0, opacity: 1 }}
+              whileInView={screenSize === "desktop" ? { x: 0, opacity: 1 } : { x: 0, opacity: 1 }}
+              transition={screenSize === "desktop" ? { delay: index * 0.1, duration: 0.6 } : { duration: 0.5 }}
+              whileHover={screenSize === "desktop" ? { scale: 1.02, borderColor: "rgba(255, 107, 53, 0.4)", x: 10 } : {}}
             >
+
+              {/* Icon */}
               <motion.div
                 className="flex items-center justify-center w-12 h-12 bg-orange-600/20 rounded-full"
-                whileHover={screenSize === 'desktop' ? { rotate: 360, scale: 1.1 } : {}}
+                whileHover={screenSize === "desktop" ? { rotate: 360, scale: 1.1 } : {}}
                 transition={{ duration: 0.5 }}
               >
                 <div className="text-orange-400">
@@ -71,7 +62,8 @@ const ScheduleSection = () => {
                 </div>
               </motion.div>
 
-              <div className="flex-1">
+              {/* Text */}
+              <div className="flex-1 text-center md:text-left">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                   <motion.span
                     className="text-lg font-semibold text-white mb-1 md:mb-0"
