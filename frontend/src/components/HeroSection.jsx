@@ -7,7 +7,7 @@ import ThreeJSLogo from "./ThreeJSLogo";
 const HeroSection = () => {
   const navigate = useNavigate();
   return (
-    <section className="relative z-10 min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-20 py-12">
+    <section className="relative z-10 min-h-[80vh] flex items-center justify-center px-6 md:px-12 lg:px-20 py-12">
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* LEFT: TEXT CONTENT */}
         <motion.div
@@ -64,7 +64,7 @@ const HeroSection = () => {
             animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            Inter-College Hackathon
+            Intra DSI Hackathon
           </motion.p>
 
           {/* Info Cards */}
@@ -76,7 +76,7 @@ const HeroSection = () => {
           >
             {[
               { icon: Calendar, text: "September 27, 2025" },
-              { icon: Clock, text: "8 AM - 8 PM" },
+              { icon: Clock, text: "8:30 AM - 8:30 PM" },
               { icon: Users, text: "12 Hours" },
             ].map((item, index) => (
               <motion.div
