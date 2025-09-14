@@ -153,8 +153,8 @@ const HeroSection = () => {
             window.scrollTo({ top: heroBottom, behavior: "smooth" });
           }
         }}
-        className="cursor-pointer mt-12"
-        animate={{ y: [0, 15, 0] }} // Bounce up and down
+        className="cursor-pointer absolute bottom-16 sm:bottom-12 md:bottom-8" // responsive positioning
+        animate={{ y: [0, -15, 0] }} // Bounce up and down
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
       >
         <svg
