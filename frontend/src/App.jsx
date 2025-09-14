@@ -14,7 +14,7 @@ import ScheduleSection from "./components/ScheduleSection";
 import SponsorsSection from "./components/SponsorsSection";
 import StatsSection from "./components/StatsSection";
 import ThemesSection from "./components/ThemesSection";
-import LoadingPage from "./Pages/LoadingPage";
+import LoadingPage from "./components/LoadingPage";
 
 const HomePage = () => {
   useEffect(() => {

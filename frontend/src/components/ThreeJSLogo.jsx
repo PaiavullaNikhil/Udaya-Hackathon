@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 function RotatingLogo({ modelPath }) {
   const meshRef = useRef();
-  const { scene, error } = useGLTF(modelPath);
+  const { scene, error } = useGLTF(modelPath, true);
 
   const [responsiveScale, setResponsiveScale] = useState([0.8, 0.8, 0.8]);
 
