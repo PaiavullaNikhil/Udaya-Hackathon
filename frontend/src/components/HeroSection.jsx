@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, Sparkles, Users } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { containerVariants, itemVariants } from "../utils/animations";
 import ThreeJSLogo from "./ThreeJSLogo";
-import { useState, useEffect } from "react";
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const HeroSection = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
   return (
-    <section className="hero relative z-10 min-h-screen flex flex-col items-center justify-center px-6 md:px-12 lg:px-20 py-12">
+    <section className="hero relative z-10 min-h-[85vh] flex flex-col items-center justify-center px-6 md:px-12 lg:px-20 py-12">
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* LEFT: TEXT CONTENT */}
         <motion.div

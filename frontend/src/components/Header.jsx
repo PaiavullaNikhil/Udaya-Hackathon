@@ -1,13 +1,18 @@
 const Header = () => {
   return (
     <header className="w-full flex flex-col sm:flex-row justify-between items-center px-4 md:px-12 lg:px-20 py-3 sm:py-4 bg-black/30 backdrop-blur-sm border-b border-orange-500/30 shadow-lg gap-3 sm:gap-0">
-      {/* Left: College Info */}
+      
+      {/* Left: College Info + Department Logo */}
       <div className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left">
+        
+        {/* College Logo */}
         <img
           src="/DSCE.png"
           alt="College Logo"
           className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border-2 border-orange-400 shadow-lg shadow-orange-500/50"
         />
+
+        {/* College Name + Department Text */}
         <div className="flex flex-col">
           <h2 className="text-sm sm:text-base md:text-lg font-bold text-orange-300 leading-tight">
             DAYANANDA SAGAR COLLEGE OF ENGINEERING
@@ -16,6 +21,13 @@ const Header = () => {
             Dept. of Computer Science & Design
           </p>
         </div>
+
+        {/* Department Logo */}
+        <img
+          src="/recursion.png" // replace with your department logo
+          alt="Department Logo"
+          className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border-2 border-orange-400 shadow-lg shadow-orange-500/50"
+        />
       </div>
 
       {/* Right: Sponsors */}

@@ -10,3 +10,6 @@
   Cache-Control: public, max-age=31536000
 /model_draco.glb
   Cache-Control: public, max-age=31536000
+/recursion.png
+  Cache-Control: public, max-age=31536000
+
