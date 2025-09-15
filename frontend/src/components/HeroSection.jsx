@@ -128,7 +128,7 @@ const HeroSection = () => {
           {/* Register Button */}
           <motion.div className="mt-8 md:mt-12" variants={isMobile ? {} : itemVariants} initial={isMobile ? { opacity: 1 } : {}} animate={isMobile ? { opacity: 1 } : {}}>
             <motion.button
-              onClick={() => navigate("https://udaya-1-0.devfolio.co/")}
+             onClick={() => window.open("https://udaya-1-0.devfolio.co/", "_blank")}
               className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 text-black px-8 md:px-12 py-4 md:py-6 rounded-full text-lg md:text-xl font-bold transition-all duration-300 border-2 border-orange-400 shadow-lg shadow-orange-500/30 relative overflow-hidden"
               initial={isMobile ? { opacity: 1, scale: 1 } : {}}
               animate={isMobile ? { opacity: 1, scale: 1, boxShadow: "0 10px 20px rgba(255, 107, 53, 0.3)" } : {
