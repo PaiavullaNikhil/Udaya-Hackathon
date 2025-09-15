@@ -9,13 +9,6 @@ const themes = [
     prize: "₹15,000 (Winner) + N/A (Runner Up)",
   },
   {
-    iconComponent: Building2,
-    title: "AI First Campus Digitization for DSI",
-    description: "Smart campus systems, automation, AI-driven facilities",
-    color: "from-indigo-600 to-sky-600",
-    prize: "₹15,000 (Winner) + N/A (Runner Up)",
-  },
-  {
     iconComponent: Wheat,
     title: "AI in Agriculture",
     description: "AI tools for smarter farming, higher yield, and sustainability",
@@ -35,6 +28,13 @@ const themes = [
     description: "Personalized learning, tools for students/teachers",
     color: "from-blue-600 to-cyan-600",
     prize: "₹15,000 (Winner) + ₹5,000 (Runner Up)",
+  },
+  {
+    iconComponent: Building2,
+    title: "AI First Campus Digitization for DSI",
+    description: "Smart campus systems, automation, AI-driven facilities",
+    color: "from-indigo-600 to-sky-600",
+    prize: "₹15,000 (Winner) + N/A (Runner Up)",
   },
 
 ];
