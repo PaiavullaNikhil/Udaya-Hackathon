@@ -53,7 +53,7 @@ const ScheduleSection = () => {
               key={index}
               className={`flex ${
                 isMobile
-                  ? 'flex-row items-center justify-between space-x-4'
+                  ? 'flex-row items-center space-x-4'
                   : 'flex-row items-start space-x-6'
               } bg-white/5 backdrop-blur-sm rounded-2xl px-6 md:px-8 py-4 md:py-6 border border-orange-500/20 w-full cursor-pointer`}
               initial={
@@ -68,11 +68,15 @@ const ScheduleSection = () => {
                 duration: isMobile ? 0 : 0.6,
                 delay: isMobile ? 0 : index * 0.1,
               }}
-              whileHover={isMobile ? {} : {
-                scale: 1.02,
-                borderColor: "rgba(255, 107, 53, 0.5)",
-                boxShadow: "0 20px 40px rgba(255, 107, 53, 0.3)",
-              }}
+              whileHover={
+                isMobile
+                  ? {}
+                  : {
+                      scale: 1.02,
+                      borderColor: 'rgba(255, 107, 53, 0.5)',
+                      boxShadow: '0 20px 40px rgba(255, 107, 53, 0.3)',
+                    }
+              }
             >
               {/* Icon */}
               <motion.div
@@ -87,22 +91,24 @@ const ScheduleSection = () => {
                 <item.iconComponent className="text-orange-400 w-5 h-5 md:w-7 md:h-7" />
               </motion.div>
 
-              {/* Text */}
+              {/* Text Section */}
               <div
                 className={`flex-1 ${
-                  isMobile ? 'flex flex-row items-center justify-between' : 'flex flex-col'
+                  isMobile
+                    ? 'flex flex-col justify-between'
+                    : 'flex flex-col'
                 }`}
               >
                 {/* Event + Time */}
                 <div
                   className={`${
                     isMobile
-                      ? 'flex flex-row items-center justify-between w-full gap-2'
+                      ? 'flex flex-col items-start w-full gap-1 '
                       : 'flex items-center justify-between mb-2'
                   }`}
                 >
                   <motion.span
-                    className="text-sm md:text-xl font-semibold text-white truncate"
+                    className="text-sm md:text-xl font-semibold text-white break-words"
                     initial={isMobile ? { opacity: 1 } : { opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: isMobile ? 0 : 0.2 }}
@@ -110,7 +116,7 @@ const ScheduleSection = () => {
                     {item.event}
                   </motion.span>
                   <motion.span
-                    className="text-orange-400 font-mono text-xs md:text-lg text-right"
+                    className="text-orange-400 font-mono text-[11px] md:text-lg"
                     initial={isMobile ? { opacity: 1 } : { opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: isMobile ? 0 : 0.3 }}
