@@ -53,7 +53,7 @@ const CTASection = () => {
         >
           <motion.button 
             className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 text-black px-10 py-5 rounded-full text-xl font-bold transition-all duration-300 border-2 border-orange-400 shadow-lg shadow-orange-500/30 relative overflow-hidden cursor-pointer"
-            onClick={()=>navigate("/register")}
+            onClick={() => window.open("https://udaya-1-0.devfolio.co/", "_blank")}
             whileHover={isMobile ? {} : { 
               scale: 1.05,
               boxShadow: "0 20px 40px rgba(255, 107, 53, 0.5)"
